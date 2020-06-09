@@ -1,0 +1,13 @@
+{
+  "image_base_path": "./Images/",
+  "image_types": ["Cat", "Dog"],
+  "video_time": 3000,
+  "trigger_interval": 100,
+  "flick_times": 5,
+  "fps": 20,
+  "screen_size": [500, 400],
+  "time_range_per_image": [3.5, 6.5],
+  "video_output": "project_video.mp4",
+  "label_output": "labels.txt",
+  "trigger_position": [0, 300, 100, 400]
+}
