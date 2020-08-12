@@ -54,11 +54,17 @@ def create_session(kitten_image_path_list, puppy_image_path_list, frame_numbers,
     label_index = []
     filename_array = []
 
+
+
     # kitten
     for filename in kitten_image_path_list:
+
+
+        # add current image
         img = cv2.imread(filename)
         frames, label = create_frames(img, frame_numbers, "Kitten", fps, trigger_position)
         frames_array.append(frames)
+
         label_array.append(label)
         label_index.append(1)
         filename_array.append(filename)
@@ -189,9 +195,9 @@ def create_video(image_base_path, fps, flick_times, screen_size, time_range_per_
     # ending frames
     ending_array = []
     for j in range(flick_times):
-        for i in range(int(0.1 * fps)):
+        for i in range(int(0.05 * fps)):
             ending_array.append(img_black)
-        for i in range(int(0.1 * fps)):
+        for i in range(int(0.05 * fps)):
             ending_array.append(img_white)
 
     img_array = welcome_array + img_array + ending_array
@@ -217,15 +223,29 @@ def create_frames(img, frame_num, label, fps, trigger_position):
     img_black = embed_trigger(img_new, background_size, trigger_position, (0, 0, 0))
     cv2.imwrite("test.jpg", img_white)
 
+    # generate fixation across
+    cross = np.zeros((1080, 1920, 3), np.uint8)
+    cv2.line(cross, (950, 540), (970, 540), (0, 0, 255), 2)
+    cv2.line(cross, (960, 530), (960, 550), (0, 0, 255), 2)
+
     # embed
 
     frame_array = []
-    for i in range(int(0.1 * fps)):
-        frame_array.append(img_black)
+
+    # add cross before current image
+    frame_array += [cross] * int(0.5 * fps)
+
+    # add current image
+    for i in range(int(0.05 * fps)):
+        frame_array.append(img_white)
     for i in range(frame_num):
         frame_array.append(img_black)
-    for i in range(int(0.1 * fps)):
-        frame_array.append(img_white)
+    for i in range(int(0.05 * fps)):
+        frame_array.append(img_black)
+
+    # add cross after current image
+    frame_array += [cross] * int(0.5 * fps)
+
     return frame_array, label
 
 
