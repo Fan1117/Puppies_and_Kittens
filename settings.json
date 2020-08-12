@@ -5,9 +5,9 @@
   "trigger_interval": 100,
   "flick_times": 5,
   "fps": 20,
-  "screen_size": [500, 400],
-  "time_range_per_image": [3.5, 6.5],
-  "video_output": "project_video.mp4",
+  "screen_size": [1920, 1080],
+  "time_range_per_image": 0.2,
+  "video_output": "project_video_0812.mp4",
   "label_output": "labels.txt",
-  "trigger_position": [0, 300, 100, 400]
+  "trigger_position": [0, 830, 100, 930]
 }
