@@ -48,7 +48,7 @@ def embed_trigger(img, background_size, trigger_position, trigger_color):
 
 
 ###
-def create_session(kitten_image_path_list, puppy_image_path, frame_numbers, fps, trigger_position):
+def create_session(kitten_image_path_list, puppy_image_path_list, frame_numbers, fps, trigger_position):
     frames_array = []
     label_array = []
     label_index = []
@@ -64,12 +64,13 @@ def create_session(kitten_image_path_list, puppy_image_path, frame_numbers, fps,
         filename_array.append(filename)
 
     # puppy
-    img = cv2.imread(puppy_image_path)
-    frames, label = create_frames(img, frame_numbers, "Puppy", fps, trigger_position)
-    frames_array.append(frames)
-    label_array.append(label)
-    label_index.append(2)
-    filename_array.append(filename)
+    for filename in puppy_image_path_list:
+        img = cv2.imread(filename)
+        frames, label = create_frames(img, frame_numbers, "Puppy", fps, trigger_position)
+        frames_array.append(frames)
+        label_array.append(label)
+        label_index.append(2)
+        filename_array.append(filename)
 
     # pack
     z = list(zip(frames_array, label_array, label_index, filename_array))
@@ -102,27 +103,27 @@ def create_video(image_base_path, fps, flick_times, screen_size, time_range_per_
 
     # session 1 1    s
     frame_numbers = int(fps * 1)
-    puppy_image_path = puppy_image_path_list[1]
+    # puppy_image_path = puppy_image_path_list[1]
     frame_array_session_1, label_array_session_1, label_index_array_session_1, filename_array_session_1 = create_session(
-        kitten_image_path_list, puppy_image_path, frame_numbers, fps, trigger_position)
+        kitten_image_path_list, puppy_image_path_list, frame_numbers, fps, trigger_position)
 
     # session 2 0.75 s
     frame_numbers = int(fps * 0.75)
-    puppy_image_path = puppy_image_path_list[2]
+    # puppy_image_path = puppy_image_path_list[2]
     frame_array_session_2, label_array_session_2, label_index_array_session_2, filename_array_session_2 = create_session(
-        kitten_image_path_list, puppy_image_path, frame_numbers, fps, trigger_position)
+        kitten_image_path_list, puppy_image_path_list, frame_numbers, fps, trigger_position)
 
     # session 3 0.5  s
     frame_numbers = int(fps * 0.5)
-    puppy_image_path = puppy_image_path_list[3]
+    # puppy_image_path = puppy_image_path_list[3]
     frame_array_session_3, label_array_session_3, label_index_array_session_3, filename_array_session_3 = create_session(
-        kitten_image_path_list, puppy_image_path, frame_numbers, fps, trigger_position)
+        kitten_image_path_list, puppy_image_path_list, frame_numbers, fps, trigger_position)
 
     # session 4 0.25 s
     frame_numbers = int(fps * 0.25)
-    puppy_image_path = puppy_image_path_list[4]
+    # puppy_image_path = puppy_image_path_list[4]
     frame_array_session_4, label_array_session_4, label_index_array_session_4, filename_array_session_4 = create_session(
-        kitten_image_path_list, puppy_image_path, frame_numbers, fps, trigger_position)
+        kitten_image_path_list, puppy_image_path_list, frame_numbers, fps, trigger_position)
 
     new_frame_array = frame_array_session_1 + frame_array_session_2 + frame_array_session_3 + frame_array_session_4
     new_label_array = label_array_session_1 + label_array_session_2 + label_array_session_3 + label_array_session_4
